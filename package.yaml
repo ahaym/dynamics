@@ -1,0 +1,73 @@
+name:                dynamics
+version:             0.1.0.0
+github:              "ahaym/dynamics"
+license:             BSD3
+author:              "Mark Hay"
+maintainer:          "mah6@williams.edu"
+copyright:           "2019 Mark Hay"
+
+extra-source-files:
+- README.md
+- ChangeLog.md
+
+# Metadata used when publishing your package
+# synopsis:            Short description of your package
+# category:            Web
+
+# To avoid duplicated efforts in documentation and dealing with the
+# complications of embedding Haddock markup inside cabal files, it is
+# common to point users to the README.md file.
+description:         Creative Dynamics Projects
+
+dependencies:
+- base >= 4.7 && < 5
+- Chart
+- Chart-cairo
+- gloss
+
+library:
+  source-dirs: src
+
+executables:
+  circle:
+    main:                Main.hs
+    source-dirs:         exe/circle
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - dynamics
+  henon:
+    main:                Main.hs
+    source-dirs:         exe/henon
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    - -O2
+    dependencies:
+    - dynamics
+    - process
+  cascade:
+    main:                Main.hs
+    source-dirs:         exe/cascade
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -O2
+    - -with-rtsopts=-N
+    dependencies:
+    - dynamics
+    - process
+
+tests:
+  dynamics-test:
+    main:                Spec.hs
+    source-dirs:         test
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - dynamics
