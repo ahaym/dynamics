@@ -1,5 +1,3 @@
-{-# LANGUAGE TupleSections #-}
-
 module Main where
 
 import System.Process
@@ -10,7 +8,7 @@ logistic :: Double -> Double -> Double
 logistic r x = r*x*(1 - x)
 
 iterLog :: Double -> [(Double, Double)]
-iterLog r = map (r,) . drop 100 . take 500 $ iterate (logistic r) 0.7
+iterLog r = map (\x -> (r, x)) . drop 100 . take 500 $ iterate (logistic r) 0.7
 
 xs :: [(Double, Double)]
 xs = [2.5, 2.5+0.001..4] >>= iterLog
