@@ -1,3 +1,10 @@
+{-- 
+ - Author: haym 
+ -
+ - Plots the Henon map for some number of steps, starting at (0.5, 0.5).
+ - Generates both a point and line plot
+--}
+
 import Graphics.Rendering.Chart.Backend.Cairo
 import Graphics.Rendering.Chart.Easy
 import Lib
@@ -10,6 +17,7 @@ henon a b (x, y) = (x', y')
         x' = 1 - a*(x^2) + y
         y' = b*x
 
+main :: IO ()
 main = do
     args <- getArgs
     let (steps, [a, b, x, y]) = case args of

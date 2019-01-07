@@ -60,6 +60,19 @@ executables:
     dependencies:
     - dynamics
     - process
+  quadratic:
+    main:                Main.hs
+    source-dirs:         exe/quadratic
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -O2
+    - -with-rtsopts=-N
+    dependencies:
+    - dynamics
+    - colour
+    - process
+    - mtl
 
 tests:
   dynamics-test:
