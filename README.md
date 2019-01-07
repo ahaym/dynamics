@@ -6,12 +6,12 @@ All project source code is in the `projects` folder. `src` contains helper funct
 
 ## Images
 
-![](MDVAIDOYHYEA50000.png)
-![](FIRCDERRPVLD50000.png)
-![](QFFVSLMJJGCR50000.png)
-![](henon.png)
-![](CVQKGHQTPHTE50000.png)
-![](henonLine.png)
-![](HGUHDPHNSGOH50000.png)
-![](MCRBIPOPHTBN50000.png)
-![](cascade.png)
+![](img/MDVAIDOYHYEA50000.png)
+![](img/FIRCDERRPVLD50000.png)
+![](img/QFFVSLMJJGCR50000.png)
+![](img/henon.png)
+![](img/CVQKGHQTPHTE50000.png)
+![](img/henonLine.png)
+![](img/HGUHDPHNSGOH50000.png)
+![](img/MCRBIPOPHTBN50000.png)
+![](img/cascade.png)

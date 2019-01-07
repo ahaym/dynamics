@@ -2,17 +2,20 @@
 
 {--
  - Generate README.md with all of the pictures for ahaym/dynamics.
+ - Also moves all image files to the correct folder.
  - Run me in the project root with all the images!
 --}
 
 import System.Directory
+import System.Process
 
-mkLink file = "![](" ++ file ++ ")"
+mkLink file = "![](img/" ++ file ++ ")"
 
 lastN :: Int -> [a] -> [a]
 lastN n xs = foldl (const . drop 1) xs (drop n xs)
 
 main = do
    template <- lines <$> readFile "template.md"
-   contents <- filter (\s -> lastN 3 s == "png") <$> listDirectory "."
+   callCommand "mv *.png img/"
+   contents <- filter (\s -> lastN 3 s == "png") <$> listDirectory "./img"
    writeFile "README.md" . unlines $ template ++ (mkLink <$> contents)
