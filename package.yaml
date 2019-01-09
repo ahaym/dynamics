@@ -73,6 +73,31 @@ executables:
     - colour
     - process
     - mtl
+  julia:
+    main:                Main.hs
+    source-dirs:         projects/julia
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -O2
+    - -with-rtsopts=-N
+    dependencies:
+    - dynamics
+    - process
+    - mtl
+  mandelbrot:
+    main:                Main.hs
+    source-dirs:         projects/mandelbrot
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -O2
+    - -with-rtsopts=-N
+    dependencies:
+    - dynamics
+    - process
+    - mtl
+
 
 tests:
   dynamics-test:
