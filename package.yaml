@@ -24,6 +24,9 @@ dependencies:
 - Chart
 - Chart-cairo
 - gloss
+- process
+- colour
+- mtl
 
 library:
   source-dirs: src
@@ -48,7 +51,6 @@ executables:
     - -O2
     dependencies:
     - dynamics
-    - process
   cascade:
     main:                Main.hs
     source-dirs:         projects/cascade
@@ -59,7 +61,6 @@ executables:
     - -with-rtsopts=-N
     dependencies:
     - dynamics
-    - process
   quadratic:
     main:                Main.hs
     source-dirs:         projects/quadratic
@@ -71,8 +72,6 @@ executables:
     dependencies:
     - dynamics
     - colour
-    - process
-    - mtl
   julia:
     main:                Main.hs
     source-dirs:         projects/julia
@@ -83,8 +82,6 @@ executables:
     - -with-rtsopts=-N
     dependencies:
     - dynamics
-    - process
-    - mtl
   mandelbrot:
     main:                Main.hs
     source-dirs:         projects/mandelbrot
@@ -95,9 +92,69 @@ executables:
     - -with-rtsopts=-N
     dependencies:
     - dynamics
-    - process
-    - mtl
-
+  c2d:
+    main:                Main.hs
+    source-dirs:         projects/c2d
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -O2
+    - -with-rtsopts=-N
+    dependencies:
+    - dynamics
+  lyapunov:
+    main:                Main.hs
+    source-dirs:         projects/lyapunov
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -O2
+    - -with-rtsopts=-N
+    dependencies:
+    - dynamics
+    - numeric-tools
+    - ad
+  logistic:
+    main:                Main.hs
+    source-dirs:         projects/logistic
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -O2
+    - -with-rtsopts=-N
+    dependencies:
+    - dynamics
+  predator:
+    main:                Main.hs
+    source-dirs:         projects/predator
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -O2
+    - -with-rtsopts=-N
+    dependencies:
+    - dynamics
+  ldiff:
+    main:                Main.hs
+    source-dirs:         projects/ldiff
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -O2
+    - -with-rtsopts=-N
+    dependencies:
+    - dynamics
+    - random
+  diff3d:
+    main:                Main.hs
+    source-dirs:         projects/lorenz
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -O2
+    - -with-rtsopts=-N
+    dependencies:
+    - dynamics
 
 tests:
   dynamics-test:
