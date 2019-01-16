@@ -16,6 +16,6 @@ lastN n xs = foldl (const . drop 1) xs (drop n xs)
 
 main = do
    template <- lines <$> readFile "template.md"
-   callCommand "mv *.png img/"
-   contents <- filter (\s -> lastN 3 s == "png") <$> listDirectory "./img"
+   callCommand "mv *.png  *.gif img/"
+   contents <- listDirectory "./img"
    writeFile "README.md" . unlines $ template ++ (mkLink <$> contents)
