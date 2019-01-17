@@ -27,6 +27,7 @@ dependencies:
 - process
 - colour
 - mtl
+- containers
 
 library:
   source-dirs: src
@@ -155,6 +156,28 @@ executables:
     - -with-rtsopts=-N
     dependencies:
     - dynamics
+  heat:
+    main:                Main.hs
+    source-dirs:         projects/heat
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -O2
+    - -with-rtsopts=-N
+    dependencies:
+    - dynamics
+    - random
+  bz:
+    main:                Main.hs
+    source-dirs:         projects/bz
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -O2
+    - -with-rtsopts=-N
+    dependencies:
+    - dynamics
+    - random
 
 tests:
   dynamics-test:

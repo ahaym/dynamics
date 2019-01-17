@@ -10,6 +10,7 @@ All project source code is in the `projects` folder. `src` contains helper funct
 ![](img/FIRCDERRPVLD50000.png)
 ![](img/QFFVSLMJJGCR50000.png)
 ![](img/henon.png)
+![](img/bz.png)
 ![](img/CVQKGHQTPHTE50000.png)
 ![](img/julia0.285-1.0e-2.png)
 ![](img/henonLine.png)
