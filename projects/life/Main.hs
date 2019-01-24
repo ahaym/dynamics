@@ -1,5 +1,6 @@
 import qualified Data.Map.Strict as M
 import Data.Maybe
+import Debug.Trace
 import qualified Data.Vector as V
 import Graphics.Gloss
 import Graphics.Gloss.Interface.IO.Game
@@ -34,25 +35,42 @@ drawSquare ((x_, y_), val) = Color c . Translate (10*x - 500) (10*y - 500) $ rec
         x = fromIntegral x_
         y = fromIntegral y_
 
-stepWorld w = M.mapWithKey step1 w
+stepWorld (b, s) w = M.mapWithKey step1 w
     where
         step1 p v
-            | neighbors < 2 = False
-            | neighbors > 3 = False
-            | neighbors == 3 = True
-            | otherwise = v
+            | not v && elem neighbors b = True
+            | v && elem neighbors s = True
+            | otherwise = False
             where
                 neighbors = length . filter id $ lookWorld w <$> adj p
 
-stepEnv _ e@Env{world = w, pause = isPaused}
+stepEnv g _ e@Env{world = w, pause = isPaused}
     | isPaused = return e
-    | otherwise = return e{world = stepWorld w}
+    | otherwise = return e{world = stepWorld g w}
+
+parse _ "life" = ([3], [2,3])
+parse g "random" = traceShowId (tt1, tt2)
+    where
+        rs = randomRs (0,8) g
+        (tt1, rs') = splitAt (head rs) rs
+        (tt2, _) = splitAt (head rs') rs'
+
+parse _ xs = (b', s')
+    where
+        (b, s_) = span ('/'/=) xs
+        s = tail s_
+        b' = read . pure <$> b
+        s' = read . pure <$> s
 
 main = do
-    args <- listToMaybe <$> getArgs
-    gen'm <- (args *>) . Just <$> getStdGen
+    args <- getArgs
+    gen <- getStdGen
+    let game_ = listToMaybe args
+        game = maybe ([3], [2,3]) (parse gen) game_
+        r = listToMaybe $ drop 1 args
+        gen'm = r *> Just gen
     playIO (InWindow "Nice Window" (1000, 1000) (10, 10)) 
-        rose 5 (e0 gen'm) (return . mkPicture) newPoints stepEnv
+        rose 5 (e0 gen'm) (return . mkPicture) newPoints (stepEnv game)
 
 newPoints (EventKey (MouseButton _) Down _ (x_, y_)) e@Env{world = w} = return e{world = w'}
     where
