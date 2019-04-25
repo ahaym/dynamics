@@ -100,3 +100,6 @@ rkStep f dt (t, y) = (t + dt, y ^+ ((dt / 6)^*(k1 ^+ (2.0^*k2) ^+ (2.0^*k3) ^+ k
         k2 = f (y ^+ ((0.5*dt)^*k1))
         k3 = f (y ^+ ((0.5*dt)^*k2))
         k4 = f (y ^+ (dt^*k3))
+
+eulerStep :: (VSpace a) => (a -> a) -> Double -> (Double, a) -> (Double, a)
+eulerStep f dt (t, y) = (t + dt, y ^+ (dt^*f y))

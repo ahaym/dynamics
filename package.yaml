@@ -182,14 +182,44 @@ executables:
     main:                Main.hs
     source-dirs:         projects/life
     ghc-options:
+    - -rtsopts
+    - -O2
+    dependencies:
+    - dynamics
+    - random
+    - vector
+  pascal:
+    main:                Main.hs
+    source-dirs:         projects/pascal
+    ghc-options:
     - -threaded
     - -rtsopts
     - -O2
     - -with-rtsopts=-N
     dependencies:
     - dynamics
-    - random
-    - vector
+  diet:
+    main:                Main.hs
+    source-dirs:         projects/diet
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -O2
+    - -with-rtsopts=-N
+    dependencies:
+    - dynamics
+  brach:
+    main:                Main.hs
+    source-dirs:         projects/brach
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -O2
+    - -with-rtsopts=-N
+    dependencies:
+    - dynamics
+    - reflection
+    - ad
 
 tests:
   dynamics-test:
