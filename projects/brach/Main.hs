@@ -2,17 +2,14 @@
 {-# LANGUAGE RankNTypes #-}
 
 import Data.Maybe (listToMaybe)
-import Data.Reflection
-import Numeric.AD
-import Numeric.AD.Internal.Reverse
-import Numeric.AD.Newton
-import System.Environment
-
+import Data.Reflection (Reifies)
 import Graphics.Rendering.Chart.Backend.Cairo
 import Graphics.Rendering.Chart.Easy
-import System.Process
-
-import Lib
+import Numeric.AD
+import Numeric.AD.Internal.Reverse (Tape, Reverse)
+import Numeric.AD.Newton
+import System.Environment
+import System.Process (callCommand)
 
 zipB :: (a, b) -> (a, b) -> [(a, b)] -> [((a, b), (a, b))]
 zipB start end points = go (start:points)
@@ -34,11 +31,10 @@ foldB start end points = (start : ans ++ [end], sum . map score . zipB start end
             . zip (auto <$> xs)
 
         score :: (Num a, Floating a, Mode a) => ((a, a), (a, a)) -> a
-        score ((x0, y0), (x1, y1)) = 2*top*bottom
+        score ((x0, y0), (x1, y1)) = 2*top / bottom
             where
-                grad = (y1 - y0) / (x1 - x0)
-                top = sqrt $ 1 + grad^2
-                bottom = -(sqrt (1 - y1) - sqrt (1 - y0)) / grad
+                top = sqrt $ (x1 - x0)^2 + (y1 - y0)^2
+                bottom = sqrt (1 - y1) + sqrt (1 - y0)
 
 main :: IO ()
 main = do 
@@ -52,4 +48,3 @@ main = do
         plot (pointsConfig black 3 <$> points "points" ps)
         --plot (pointsConfig red 5 <$> points "parab" points')
     callCommand ("feh " ++ "brachGrad.png")
-
