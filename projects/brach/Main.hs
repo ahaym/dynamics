@@ -11,6 +11,8 @@ import Numeric.AD.Newton
 import System.Environment
 import System.Process (callCommand)
 
+import Lib
+
 zipB :: (a, b) -> (a, b) -> [(a, b)] -> [((a, b), (a, b))]
 zipB start end points = go (start:points)
     where
