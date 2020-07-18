@@ -1,4 +1,4 @@
-import Graphics.Rendering.Chart.Backend.Cairo
+import Graphics.Rendering.Chart.Backend.Diagrams
 import Graphics.Rendering.Chart.Easy
 import System.Environment
 import System.Process
@@ -24,9 +24,9 @@ main = do
             _ -> [10, 10, 0.1]
         (preys, predators) = predatorPoints beta (prey0, predator0)
 
-    toFile def "predator.png" $ do
+    toFile def "predator.svg" $ do
         layout_title .= show p
         plot (line "prey" . pure $ preys)
         plot (line "predator" . pure $ predators)
 
-    callCommand "feh predator.png"
+    callCommand "inkview predator.png"

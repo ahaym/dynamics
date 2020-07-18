@@ -20,9 +20,9 @@ extra-source-files:
 description:         Creative Dynamics Projects
 
 dependencies:
-- base >= 4.7 && < 5
+- base
 - Chart
-- Chart-cairo
+- Chart-diagrams
 - gloss
 - process
 - colour
@@ -220,7 +220,17 @@ executables:
     - dynamics
     - reflection
     - ad
-
+  sicm1:
+    main:                Main.hs
+    source-dirs:         projects/sicm1
+    ghc-options:
+    - -rtsopts
+    - -O2
+    dependencies:
+    - dynamics
+    - reflection
+    - ad
+    - hmatrix-gsl
 tests:
   dynamics-test:
     main:                Spec.hs

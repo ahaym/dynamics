@@ -20,8 +20,8 @@ main = do
             [ls] -> (50000, toUpper <$> ls)
             [ls, steps'] -> (read steps', toUpper <$> ls) :: (Int, String)
         xs = take steps $ iterate (runAttractor (attrFromLetters letters)) (0, 0)
-        fileName = letters ++ show steps ++  ".png"
+        fileName = letters ++ show steps ++  ".svg"
 
     plotPointsColor purple fileName letters 0.7 xs
 
-    callCommand $ "feh " ++ fileName
+    callCommand $ "svg " ++ fileName

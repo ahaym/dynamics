@@ -3,7 +3,7 @@
 
 import Data.Maybe (listToMaybe)
 import Data.Reflection (Reifies)
-import Graphics.Rendering.Chart.Backend.Cairo
+import Graphics.Rendering.Chart.Backend.Diagrams
 import Graphics.Rendering.Chart.Easy
 import Numeric.AD
 import Numeric.AD.Internal.Reverse (Tape, Reverse)
@@ -45,7 +45,7 @@ main = do
         --points' = [(x, f x) | x <- [0, 0.01..1]]
         --f x = (4*(1 - 0.62302128))*(x - 0.5)^2 + 0.62302128
     print ans
-    toFile def "brachGrad.png" $ do
+    toFile def "brachGrad.svg" $ do
         layout_title .= "Brachistochrone"
         plot (pointsConfig black 3 <$> points "points" ps)
         --plot (pointsConfig red 5 <$> points "parab" points')

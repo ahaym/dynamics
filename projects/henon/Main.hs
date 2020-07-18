@@ -5,7 +5,7 @@
  - Generates both a point and line plot
 --}
 
-import Graphics.Rendering.Chart.Backend.Cairo
+import Graphics.Rendering.Chart.Backend.Diagrams
 import Graphics.Rendering.Chart.Easy
 import Lib
 import System.Environment
@@ -26,10 +26,10 @@ main = do
         xs = take steps $ iterate (henon a b) (x, y)
         title = unwords ["Henon Map with a =", show a, "b =", show b, "init =", show (x, y)]
     
-    plotPoints "henon.png" title 0.7 xs
+    plotPoints "henon.svg" title 0.7 xs
 
-    toFile def "henonLine.png" $ do
+    toFile def "henonLine.svg" $ do
         layout_title .= title
         plot (line "henon" . pure . take 500 $ xs)
 
-    callCommand "feh henon*.png"
+    callCommand "inkview henon*.svg"

@@ -1,7 +1,7 @@
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE LambdaCase #-}
 
-{-- 
+{--
  - Author: haym 
  -
  - Helper functions common to multiple projects
@@ -16,7 +16,7 @@ import Data.Colour.Names
 import Data.Maybe
 
 import Data.Complex
-import Graphics.Rendering.Chart.Backend.Cairo
+import Graphics.Rendering.Chart.Backend.Diagrams
 import Graphics.Rendering.Chart.Easy
 import System.Process
 
@@ -32,7 +32,7 @@ instance Mag C where
     mag = magnitude
 
 plotPoints' :: FilePath -> String -> Double -> [(Double, Double)] -> IO ()
-plotPoints' file title rad xs = plotPoints file title rad xs >> callCommand ("feh " ++ file)
+plotPoints' file title rad xs = plotPoints file title rad xs >> callCommand ("inkview " ++ file)
 
 plotPoints :: FilePath -> String -> Double -> [(Double, Double)] -> IO ()
 plotPoints = plotPointsColor black
@@ -65,9 +65,12 @@ mkAttractor cs = (fx, fy)
             (x:xs) -> put xs >> return x
             _ -> return 0
         mkMap = do
-            [a1, a2, a3, a4, a5, a6] <- replicateM 6 getNum
-            let f x y = a1 + a2*x + a3*x*x + a4*x*y + a5*y + a6*y*y
-            return f
+            n <- replicateM 6 getNum
+            return $ case n of
+                [a1, a2, a3, a4, a5, a6] ->
+                    let f x y = a1 + a2*x + a3*x*x + a4*x*y + a5*y + a6*y*y
+                    in f
+                [] -> error "lol"
 
         [fx, fy] = evalState (replicateM 2 mkMap) cs
 
@@ -100,6 +103,22 @@ rkStep f dt (t, y) = (t + dt, y ^+ ((dt / 6)^*(k1 ^+ (2.0^*k2) ^+ (2.0^*k3) ^+ k
         k2 = f (y ^+ ((0.5*dt)^*k1))
         k3 = f (y ^+ ((0.5*dt)^*k2))
         k4 = f (y ^+ (dt^*k3))
+
+rkStep' :: (VSpace a) => (a -> a -> a) -> Double -> (Double, a, a) -> (Double, a, a)
+rkStep' f dt (t, y, y') = (t + dt, y ^+ (dt^*y'), y'New)
+    where
+        y'New = y' ^+ ((dt / 6)^*(k1 ^+ (2.0^*k2) ^+ (2.0^*k3) ^+ k4))
+        k1 = f y y'
+        k2 = f y (y' ^+ ((0.5*dt)^*k1))
+        k3 = f y (y' ^+ ((0.5*dt)^*k2))
+        k4 = f y (y' ^+ (dt^*k3))
+
+eulerStep' :: VSpace a => (a -> a -> a) -> Double -> (Double, a, a) -> (Double, a, a)
+eulerStep' a dt (t, y, y') = (tNew, yNew, y'New)
+    where
+    y'New = y' ^+ (dt^*a y y')
+    yNew = y ^+ (dt^*y'New)
+    tNew = t + dt
 
 eulerStep :: (VSpace a) => (a -> a) -> Double -> (Double, a) -> (Double, a)
 eulerStep f dt (t, y) = (t + dt, y ^+ (dt^*f y))

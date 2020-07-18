@@ -14,4 +14,4 @@ main = do
     args <- getArgs
     let x0 = maybe 0.01 read $ listToMaybe args
         title = "x0 = " ++ show x0
-    plotPoints' "logistic.png" title 1 $ logisticPoints x0
+    plotPoints' "logistic.svg" title 1 $ logisticPoints x0

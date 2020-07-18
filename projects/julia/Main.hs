@@ -16,8 +16,8 @@ main = do
         points = (:+) <$> [-1.5,-1.495..1.5] <*>  [-1.2,-1.195..1.2]
         jset = c2t <$> filter (not . diverges 50 (func (real :+ imag))) points
 
-        fileName = "julia" ++ show real ++ "-" ++ show imag ++ ".png"
+        fileName = "julia" ++ show real ++ "-" ++ show imag ++ ".svg"
         title = "Julia Set for z^2 + " ++ show real ++ " + " ++ show imag ++ "i"
 
     plotPoints fileName title 1.7 jset
-    callCommand $ "feh " ++ fileName
+    callCommand $ "inkview " ++ fileName

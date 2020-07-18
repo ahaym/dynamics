@@ -7,4 +7,4 @@ points = zipWith (\a xs -> map (\x -> (a, x)) xs) [0..] kpoints
 
 xor a b = if a == b then 0 else 1
 
-main = plotPoints' "pascal.png" "Pascal's Triangle Mod 2" 0.5 $ concat (take 6000 points)
+main = plotPoints' "pascal.svg" "Pascal's Triangle Mod 2" 0.5 $ concat (take 6000 points)

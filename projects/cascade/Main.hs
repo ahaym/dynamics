@@ -20,5 +20,4 @@ xs :: [(Double, Double)]
 xs = [2.5, 2.5+0.001..4] >>= iterLog
 
 main = do
-    plotPoints "cascade.png" "Feigenbaum Cascade" 0.25 xs
-    callCommand "feh cascade.png"
+    plotPoints "cascade.svg" "Feigenbaum Cascade" 0.25 xs
